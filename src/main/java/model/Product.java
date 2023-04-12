@@ -1,6 +1,5 @@
 package model;
 
-import jdk.jfr.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,4 +11,5 @@ public class Product {
     private String description;
     private int price;
     private int quantity;
+    private Category category;
 }

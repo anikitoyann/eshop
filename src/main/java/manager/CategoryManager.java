@@ -26,8 +26,8 @@ public class CategoryManager {
 
     public static List<Category> getAll() {
         List<Category> categoryList = new ArrayList<>();
-        try (PreparedStatement prepareStatement = connection.prepareStatement("SELECT * from category")) {
-            ResultSet resultSet = prepareStatement.executeQuery();
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(("SELECT * from category"));
             while (resultSet.next()) {
                 categoryList.add(getCategoryFromResultSet(resultSet));
             }

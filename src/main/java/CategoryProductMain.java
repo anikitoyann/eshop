@@ -86,17 +86,24 @@ public class CategoryProductMain {
     }
 
     private static void addProduct() {
-
-        System.out.println("please input product name,description,price,quantity");
-        String productStr = scanner.nextLine();
-        String[] productData = productStr.split(",");
-        Product product = new Product();
-        product.setName(productData[0]);
-        product.setDescription(productData[1]);
-        product.setPrice(Integer.parseInt(productData[2]));
-        product.setQuantity(Integer.parseInt(productData[3]));
-        productManager.save(product);
-
+        List<Category> all = categoryManager.getAll();
+        for (Category category : all) {
+            System.out.println(category);
+        }
+        System.out.println("Please choose categoryID");
+        int id = Integer.parseInt(scanner.nextLine());
+        Category byId = categoryManager.getById(id);
+        if (byId != null) {
+            System.out.println("please input product name,description,price,quantity");
+            String productStr = scanner.nextLine();
+            String[] productData = productStr.split(",");
+            Product product = new Product();
+            product.setName(productData[0]);
+            product.setDescription(productData[1]);
+            product.setPrice(Integer.parseInt(productData[2]));
+            product.setQuantity(Integer.parseInt(productData[3]));
+            productManager.save(product);
+        }
     }
 
 

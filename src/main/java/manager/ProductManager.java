@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductManager {
-    CategoryManager categoryManager = new CategoryManager();
+    static CategoryManager categoryManager = new CategoryManager();
     Connection connection = DBConnectionProvider.getInstance().getConnection();
 
     public List<Product> getAll() {
@@ -26,11 +26,12 @@ public class ProductManager {
     }
 
     public void save(Product product) {
-        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO product(name,description,price,quantity) VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO product(name,description,price,quantity,category_id) VALUES(?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, product.getName());
             statement.setString(2, product.getDescription());
             statement.setInt(3, product.getPrice());
             statement.setInt(4, product.getQuantity());
+            statement.setInt(5, product.getId());
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
@@ -120,6 +121,8 @@ public class ProductManager {
         product.setDescription(resultSet.getString("description"));
         product.setPrice(resultSet.getInt("price"));
         product.setQuantity(resultSet.getInt("quantity"));
+        int category_id = resultSet.getInt("category_id");
+        product.setCategory(categoryManager.getById(category_id));
         return product;
     }
 
