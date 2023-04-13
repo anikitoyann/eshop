@@ -98,6 +98,7 @@ public class CategoryProductMain {
             String productStr = scanner.nextLine();
             String[] productData = productStr.split(",");
             Product product = new Product();
+            product.setCategory(byId);
             product.setName(productData[0]);
             product.setDescription(productData[1]);
             product.setPrice(Integer.parseInt(productData[2]));

@@ -31,7 +31,7 @@ public class ProductManager {
             statement.setString(2, product.getDescription());
             statement.setInt(3, product.getPrice());
             statement.setInt(4, product.getQuantity());
-            statement.setInt(5, product.getId());
+            statement.setInt(5, product.getCategory().getId());
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
